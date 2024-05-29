@@ -1,0 +1,90 @@
+.popoverBox {
+  height: 320px;
+  width: 520px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+
+    .searchSelect {
+      width: 120px;
+    }
+    .searchInput {
+      width: 360px;
+    }
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.warehouseBox {
+  width: 90%;
+  margin-top: 10px;
+  height: 80px;
+  border: 2px solid #91919129;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+
+  .warehouseImg {
+    height: 100%;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  .warehouseInfo {
+    height: 100%;
+    width: 280px;
+
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .content {
+      display: flex;
+      flex-direction: row;
+      height: 20px;
+
+      .icon {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .word {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .progress {
+    flex: 1;
+  }
+}
+.selectedBox {
+  border: 3px solid #0c035d;
+}
+
+.button {
+  width: 200px;
+}

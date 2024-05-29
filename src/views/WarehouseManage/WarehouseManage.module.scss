@@ -1,0 +1,89 @@
+.firstRow {
+  width: 90%;
+  margin: 0 auto;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .upload {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 25px;
+  }
+
+  .Row1Right {
+    display: flex;
+    flex-direction: column;
+    margin-left: 45px;
+    height: 100%;
+
+    .formItem {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .formItemLabel {
+        width: 80px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        font-weight: 600;
+        color: gray;
+      }
+
+      .textarea {
+        resize: none;
+        height: 145px;
+        width: 360px;
+      }
+    }
+  }
+}
+
+.secondRow {
+  width: 85%;
+  display: flex;
+  margin: 30px auto;
+
+  .formItem2 {
+    display: flex;
+    align-items: center;
+
+    .formItemLabel2 {
+      width: 90px;
+      font-weight: 600;
+      color: gray;
+    }
+
+    .formItemInput2 {
+      width: 100px;
+    }
+  }
+
+  .formItemSlider {
+    flex: 1;
+    margin: 0 10px;
+  }
+
+  .formItemSliderLabel {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    width: 140px;
+    font-weight: 600;
+    color: gray;
+  }
+}
+
+.footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}

@@ -1,0 +1,18 @@
+.switchOption {
+  height: 50px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+
+  .label {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: gray;
+  }
+  .swich {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+  }
+}

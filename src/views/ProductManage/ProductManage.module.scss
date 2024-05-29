@@ -1,0 +1,55 @@
+.productManageAddForm {
+  width: 100%;
+
+  .Row1 {
+    display: flex;
+    justify-content: center;
+
+    .upload {
+      width: 160px;
+      height: 160px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .Row1Right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 35px;
+      width: 480px;
+
+      .formItem {
+        display: flex;
+        height: 35px;
+        margin: 10px 0;
+
+        .formItemLabel {
+          width: 120px;
+          height: 100%;
+          display: flex;
+          align-items: center;
+
+          font-weight: 600;
+          color: gray;
+        }
+
+        .formItemBtn {
+          flex: 1;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}

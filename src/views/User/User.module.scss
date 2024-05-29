@@ -1,0 +1,168 @@
+.searchBox {
+  display: flex;
+  height: 70px;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: center;
+
+  .searchInput {
+    width: 50%;
+  }
+
+  .searchButton {
+    margin-left: 20px;
+  }
+
+  .searchSelect {
+    margin-left: 20px;
+    width: 180px;
+  }
+}
+
+.userList {
+  width: 90%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+
+  .userListItem {
+    position: relative;
+    margin-top: 15px;
+    width: 100%;
+    height: 120px;
+    background-color: white;
+    border: 2px solid rgb(197, 197, 197);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+
+    img {
+      height: 90%;
+      margin: 5px 0;
+    }
+
+    .companyInfo {
+      padding-left: 5px;
+      display: flex;
+      flex-direction: column;
+
+      .companyName {
+        height: 30px;
+        line-height: 30px;
+      }
+
+      h3 {
+        font-size: 18px;
+      }
+    }
+
+    .detailButton {
+      height: calc(100% - 30px);
+      position: absolute;
+      right: 0;
+      margin-right: 15px;
+      width: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.rowInfoItem {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  margin-top: 10px;
+
+  .ItemContent {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    align-items: center;
+
+    .label {
+      height: 30px;
+      line-height: 30px;
+      width: 100px;
+      font-weight: 800;
+    }
+
+    .input {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      width: 260px;
+      resize: none;
+
+      color: black;
+      font-weight: 500;
+    }
+  }
+}
+
+.checkBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .checkBox2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    img {
+      height: 160px;
+      margin: auto 0;
+      margin-right: 50px;
+    }
+
+    .textInfo {
+      width: 770px;
+
+      .firstRow {
+        height: 30px;
+        display: flex;
+        align-items: center;
+      }
+
+      .firstRow:first-child {
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .secondRow {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: row;
+
+        .info {
+          display: flex;
+          flex-direction: row;
+        }
+      }
+    }
+  }
+}
+
+.checkBoxItem {
+
+  .label {
+    width: 80px !important;
+  }
+
+  .input {
+    width: 210px !important;
+    line-height: 100%;
+  }
+}
+
+.bottomButton {
+  margin-top: 20px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}

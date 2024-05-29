@@ -1,0 +1,45 @@
+.siderBar {
+  overflow: auto;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+
+  .title {
+    height: 40px;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 25px;
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+
+  img {
+    height: 50px;
+  }
+}
+
+.header {
+  padding: 0;
+  background-color: white;
+
+  .openBtn {
+    font-size: 24px;
+  }
+}
+
+.content {
+  margin: 24px 16px;
+  min-height: 460px;
+  padding: 24px;
+  padding-top: 0;
+  background-color: white;
+  border-radius: 24px;
+
+  max-height: calc(100vh - 114px);
+  overflow-y: auto;
+}

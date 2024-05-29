@@ -1,0 +1,238 @@
+.searchInput {
+  width: 60%;
+  height: 50px;
+  margin: 5px 20%;
+}
+
+.productCard {
+  margin-top: 20px;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border: 2px solid rgb(156, 156, 156);
+
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+
+  .productName {
+    width: calc(100% - 10px);
+    height: 12%;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(3, 2, 43);
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+  }
+
+  .productPrice {
+    position: absolute;
+    bottom: 25px;
+    right: 15px;
+    font-size: 22px;
+    color: #2b2a33;
+  }
+
+  .productPrice::before {
+    content: "￥";
+  }
+}
+
+.productCard:hover {
+  cursor: pointer;
+}
+
+.productCard::before {
+  content: "";
+  background: #001529e1;
+  opacity: 0.85;
+  position: absolute;
+  width: 100%;
+  height: 0;
+  transition: 0.4s ease-in-out;
+}
+
+.productCard:hover:before {
+  height: 100%;
+}
+
+.txtx {
+  position: absolute;
+  text-align: center;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.5s ease-in-out;
+  opacity: 0;
+  width: 100%;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.productCard:hover .txtx {
+  top: 50%;
+  opacity: 1;
+}
+
+.detailBox {
+  display: flex;
+
+  .image {
+    height: 240px;
+    width: 240px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .detail {
+    display: flex;
+    width: calc(100% - 260px);
+    flex-direction: column;
+    margin-left: 20px;
+    font-weight: 600;
+    color: rgb(49, 49, 49);
+
+    .detailType {
+      margin-top: 15px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+
+      .label {
+        width: 100px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .tags {
+        width: calc(100% - 115px);
+        margin-left: 15px;
+        display: flex;
+        overflow-y: hidden;
+        overflow-x: auto;
+
+        .tag {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 10px;
+          height: 30px;
+          padding: 5px;
+          border-radius: 10px;
+          border: 2px gray dashed;
+          white-space: nowrap;
+        }
+
+        .activeTag {
+          border: rgb(3, 2, 43) solid;
+        }
+
+        .tag:hover {
+          cursor: pointer;
+        }
+      }
+
+      .value {
+        margin-left: 15px;
+        color: rgb(74, 74, 74);
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.purchaseInfo,
+.purchaseBox {
+  margin-top: 15px;
+  width: calc(100% - 50px);
+  height: 200px;
+  border: 2px solid gray;
+  border-radius: 25px;
+  padding: 25px;
+}
+
+.purchaseInfo {
+  height: 150px;
+  text-align: center;
+
+  .price,
+  .cnt {
+    font-size: 26px;
+    font-weight: 700;
+    color: rgb(47, 47, 47);
+
+    .sign {
+      font-size: 50px;
+    }
+  }
+
+  .cnt {
+    font-size: 18px;
+  }
+}
+
+.purchaseBox {
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .purchaseNum {
+    margin-top: 15px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+
+    .label {
+      width: 120px;
+      text-align: center;
+    }
+  }
+
+  .purchaseAddress {
+    margin-top: 15px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+
+    .label {
+      width: 120px;
+      text-align: center;
+    }
+  }
+
+  .purchasePrice {
+    margin-top: 15px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .foront {
+      display: flex;
+      align-items: center;
+
+      .label {
+        width: 120px;
+        text-align: center;
+      }
+
+      .price {
+        font-size: 20px;
+        font-weight: 700;
+      }
+    }
+
+    .back {
+      margin-right: 15px;
+    }
+  }
+}
