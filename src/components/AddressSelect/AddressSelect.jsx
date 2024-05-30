@@ -9,11 +9,16 @@ export default function AddressSelect(props) {
   const [buttonName, setButtonName] = useState("")
   const [selectedAddressID, setSelectedAddressID] = useState(-1)
 
+  useEffect(() => {
+    setButtonName(props.addressName)
+    setSelectedAddressID(props.addressID)
+  }, [props.addressName, props.addressID])
+
   const onChange = (addressID, addressName) => {
     setButtonName(addressName)
     setSelectedAddressID(addressID)
     console.log("newID:", addressID)
-    props.getAddressID(addressID)
+    props.handleOnChangeAddress(addressID, addressName)
   }
 
   return (

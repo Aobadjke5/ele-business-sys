@@ -1,7 +1,7 @@
 import style from './WarehouseSelect.module.scss'
 import { Button, Input, Popover, Progress, Select, message } from "antd"
 import { SearchOutlined, IdcardOutlined, TagOutlined } from '@ant-design/icons'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { WarehouseListApi } from '../../api/Warehouse/WarehouseListApi'
 
 export default function WarehouseSelect(props) {
@@ -29,6 +29,8 @@ export default function WarehouseSelect(props) {
 
 function WarehouseList(props) {
   const [warehouseList, setWarehouseList] = useState([])
+  const [searchText, setSearchText] = useState("")
+  const [selectValue, setSelectValue] = useState("1")
   const selectOptions = [
     {value: "1", label: "仓库名称"},
     {value: "2", label: "公司名称"},
@@ -45,6 +47,19 @@ function WarehouseList(props) {
     })
   }, [])
 
+  const showWarehouseList = useMemo(() => {
+    if(selectValue === "1") {
+      return warehouseList.filter(item => item.warehouseName.toUpperCase().includes(searchText.toUpperCase()))
+    }
+    if(selectValue === "2") {
+      return warehouseList.filter(item => item.companyInfo.companyName.toUpperCase().includes(searchText.toUpperCase()))
+    }
+    if(selectValue === "3") {
+      return warehouseList.filter(item => item.warehouseAddress.toUpperCase().includes(searchText.toUpperCase()))
+    }
+    return warehouseList
+  }, [warehouseList, selectValue, searchText])
+
   const onClickChange = (warehouseID, warehouseName) => {
     props.selectChange(warehouseID, warehouseName)
   }
@@ -52,12 +67,12 @@ function WarehouseList(props) {
   return (
     <div className={style.popoverBox}>
       <div className={style.header}>
-        <Input className={style.searchInput} addonBefore={<SearchOutlined />}/>
-        <Select className={style.searchSelect} options={selectOptions} defaultValue="1"/>
+        <Input className={style.searchInput} value={searchText} onChange={(e) => setSearchText(e.target.value)} addonBefore={<SearchOutlined />}/>
+        <Select className={style.searchSelect} options={selectOptions} defaultValue="1" onChange={(value) => setSelectValue(value)}/>
       </div>
       <div className={style.content}>
         {
-          warehouseList.map(item => 
+          showWarehouseList.map(item => 
             <WarehouseBox 
               className={item.warehouseID === props.selectedWarehouseID ? style.selectedBox : ""}
               key={item.warehouseID} {...item} onClick={()=>onClickChange(item.warehouseID, item.warehouseName)}/>

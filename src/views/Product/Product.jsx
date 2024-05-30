@@ -87,6 +87,7 @@ const ProductDetails = (props) => {
   const [productDetail, setProductDetail] = useState()
   const [purchaseNum, setPurchaseNum] = useState(1)
   const [addressID, setAddressID] = useState()
+  const [addressName, setAddressName] = useState()
   useEffect(() => {
     if (!selectProDetailID) { setProductImage(import.meta.env.VITE_API_BASE_URL + props.productImage) }
   }, [props.productImage, selectProDetailID])
@@ -95,6 +96,14 @@ const ProductDetails = (props) => {
     setCompanyInfo(props.companyInfo)
     setWarehouseInfo(props.warehouseInfo)
   }, [props])
+
+  const defaultAddress = useSelector(state => state.userInfo.defaultAddress)
+  useEffect(() => {
+    if (defaultAddress) {
+      setAddressID(defaultAddress.addressID)
+      setAddressName(defaultAddress.addressDetail)
+    }
+  }, [defaultAddress])
 
   const totalPrice = useMemo(() => {
     if(!productDetail || !purchaseNum) return 0
@@ -107,8 +116,9 @@ const ProductDetails = (props) => {
     setProductImage(import.meta.env.VITE_API_BASE_URL + productDetails[index].productImage)
   }
 
-  const getAddressID = (addressID) => {
+  const handleOnChangeAddress = (addressID, addressName) => {
     setAddressID(addressID)
+    setAddressName(addressName)
   }
 
   const purchase = () => {
@@ -176,7 +186,7 @@ const ProductDetails = (props) => {
           </div>
           <div className={style.purchaseAddress}>
             <div className={style.label}>配送地址：</div>
-            <AddressSelect getAddressID={(id) => getAddressID(id)}/>
+            <AddressSelect addressID={addressID} addressName={addressName} handleOnChangeAddress={(id, name) => handleOnChangeAddress(id, name)}/>
           </div>
           <div className={style.purchasePrice}>
             <div className={style.foront}>
