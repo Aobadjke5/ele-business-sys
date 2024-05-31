@@ -86,8 +86,8 @@ const ProductDetails = (props) => {
   const [selectProDetailID, setSelectProDetailID] = useState()
   const [productDetail, setProductDetail] = useState()
   const [purchaseNum, setPurchaseNum] = useState(1)
-  const [addressID, setAddressID] = useState()
-  const [addressName, setAddressName] = useState()
+  const [addressID, setAddressID] = useState(-1)
+  const [addressName, setAddressName] = useState("")
   useEffect(() => {
     if (!selectProDetailID) { setProductImage(import.meta.env.VITE_API_BASE_URL + props.productImage) }
   }, [props.productImage, selectProDetailID])
@@ -100,8 +100,12 @@ const ProductDetails = (props) => {
   const defaultAddress = useSelector(state => state.userInfo.defaultAddress)
   useEffect(() => {
     if (defaultAddress) {
-      setAddressID(defaultAddress.addressID)
-      setAddressName(defaultAddress.addressDetail)
+      if(defaultAddress.addressID) {
+        setAddressID(defaultAddress.addressID)
+      }
+      if(defaultAddress.addressDetail) {
+        setAddressName(defaultAddress.addressDetail)
+      }
     }
   }, [defaultAddress])
 

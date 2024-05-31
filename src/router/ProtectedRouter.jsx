@@ -75,8 +75,18 @@ export default function ProtectedRouter(props) {
   const DealerAllow = ["/", "/product", "/order", "/center", "logout"]
   const SupplierAllow = ["/", "/productManage", "/order", "/center", "logout"]
   const WarehouserAllow = ["/", "/warehouseManage", "/order", "/center", "logout"]
+  const specialAllow = {
+    "/center/address": "Dealer"
+  }
   useEffect(() => {
     const role = personalInfo && personalInfo.role
+
+    if(specialAllow[pathname] && role && role !== specialAllow[pathname]) {
+      message.error("无权限访问!")
+      navigate("/")
+      return
+    }
+
     const frontPath = "/" + pathname.split("/")[1]
     if (role === "Admin") {
       if(!AdminAllow.includes(frontPath)) {

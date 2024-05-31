@@ -43,6 +43,7 @@ export default function CreateAddressModal(props) {
       setInputPeopleTel("")
       props.onOk()
     }).catch(err => {
+      setConfirmLoading(false)
       console.log(err)
       message.error("网络错误，请稍后重试")
       return

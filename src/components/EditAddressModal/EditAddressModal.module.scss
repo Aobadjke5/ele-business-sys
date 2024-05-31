@@ -1,0 +1,32 @@
+.addressForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .addressItem {
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+
+    .label {
+      height: 100%;
+      width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: gray;
+    }
+    .textarea {
+      height: 80%;
+      flex: 1;
+      resize: none;
+      margin: auto 0;
+    }
+    .input {
+      margin: auto 0;
+      flex: 1;
+    }
+  }
+}
