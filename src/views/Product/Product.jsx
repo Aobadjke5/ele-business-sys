@@ -141,11 +141,19 @@ const ProductDetails = (props) => {
 
     PurchaseProductApi(selectProDetailID, purchaseNum, totalPrice, addressID).then(res => {
       console.log(res)
+      if(res.code === 200) {
+        message.success("购买成功")
+        navigate("/order")
+      } else {
+        message.error("购买失败")
+      }
     }).catch(err => {
       if(err.code === 40004) {
         navigate("/login")
+        return
       }
       console.log(err)
+      message.error("网络错误，请稍后重试")
     })
   }
 
