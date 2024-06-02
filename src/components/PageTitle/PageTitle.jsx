@@ -6,7 +6,7 @@ export default function PageTitle(props) {
     <div className={style.pageHeader}>
       <div className={style.pageToper}></div>
       <div className={style.pageTitle}>{props.title}</div>
-      <Divider />
+      {!props.noLine ? <Divider /> : <div style={{height: "35px", width: "100%"}}></div>}
     </div>
   )
 }
