@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { ProductListApi } from "../../api/Product/ProductListApi";
-import { Button, Col, Input, InputNumber, Modal, Row, message } from "antd";
+import { Button, Col, Input, InputNumber, Modal, Pagination, Row, message } from "antd";
 import style from "./Product.module.scss"
 import AddressSelect from "../../components/AddressSelect/AddressSelect";
 import { PurchaseProductApi } from "../../api/Product/PurchaseProductApi";
@@ -9,14 +9,19 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Product() {
+  const pageSize = 12
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalCnt, setTotalCnt] = useState(0)
   const [productList, setProductList] = useState([])
+  const [searchText, setSearchText] = useState("")
   const userRole = useSelector(state => state.userInfo.role)
 
   useEffect(() => {
     if (userRole === "Dealer") {
-      ProductListApi().then(res => {
+      ProductListApi(1, pageSize).then(res => {
         console.log(res)
         setProductList(res.data.productList)
+        setTotalCnt(res.data.totalCnt)
       }).catch(err => {
         console.log(err)
         message.error("网络错误，请稍后重试")
@@ -26,20 +31,47 @@ export default function Product() {
   }, [userRole])
 
   const handleSearch = (value) => {
+    console.log(searchText)
+    setSearchText(value)
     console.log("Search", value)
+    ProductListApi(1, pageSize, value).then(res => {
+      console.log(res)
+      setProductList(res.data.productList)
+      setTotalCnt(res.data.totalCnt)
+      setCurrentPage(1)
+    }).catch(err => {
+      console.log(err)
+      message.error("网络错误，请稍后重试")
+    })
+  }
+
+  const handleOnPageChange = (page) => {
+    setCurrentPage(page)
+    ProductListApi(page, pageSize, searchText).then(res => {
+      console.log(res)
+      setProductList(res.data.productList)
+      setTotalCnt(res.data.totalCnt)
+    }).catch(err => {
+      console.log(err)
+      message.error("网络错误，请稍后重试")
+    })
   }
 
   return (
     <>
       <PageTitle title="商品列表" />
       <div className={style.searchInput}>
-        <Input.Search placeholder="请输入您要搜索的商品" allowClear enterButton="搜索" size="large" onSearch={(value) => handleSearch(value)}/>
+        <Input.Search placeholder="请输入您要搜索的商品" allowClear enterButton="搜索" size="large" onSearch={(value) => handleSearch(value)} />
       </div>
       <Row>
         {productList.map(item => {
           return <ProductCard key={item.productID} {...item} />
         })}
       </Row>
+      <div style={{display: "flex", marginTop: "35px", marginBottom: '35px', alignItems: 'center', justifyContent: 'center'}}>
+        <Pagination current={currentPage} showSizeChanger={false}
+          onChange={(page) => handleOnPageChange(page)} total={totalCnt}/>
+      </div>
     </>
   )
 }
