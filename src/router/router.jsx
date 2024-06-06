@@ -16,6 +16,7 @@ import WarehouseManageList from "../views/WarehouseManage/WarehouseManageList";
 import WarehouseManageAdd from "../views/WarehouseManage/WarehouseManageAdd";
 import ProtectedRouter from "./ProtectedRouter";
 import UserAddress from "../views/Center/UserAddress";
+import AdminAdd from "../views/Admin/AdminAdd";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
         <Route index element={<Index />} />
         <Route path="/user/list" element={<UserList />} />
         <Route path="/user/check" element={<UserCheck />} />
+        <Route path="/admin/create" element={<AdminAdd />} />
         <Route path="/product" element={<Product />} />
         <Route path="/productManage/list" element={<ProductManageList />} />
         <Route path="/productManage/create" element={<ProductManageAdd />} />

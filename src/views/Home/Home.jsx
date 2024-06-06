@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import logo from "../../assets/images/cartLogo.svg"
 import {
   MenuFoldOutlined,
-  MenuUnfoldOutlined,
+  MenuUnfoldOutlined, TeamOutlined,
   HomeOutlined, UserOutlined, ProductOutlined, SolutionOutlined,
   LogoutOutlined, AccountBookOutlined, TruckOutlined, ShoppingOutlined
 } from '@ant-design/icons';
@@ -26,6 +26,14 @@ export default function Home() {
       children: [
         { key: "/user/list", label: '用户列表' },
         { key: "/user/check", label: '用户审核' }
+      ]
+    },
+    {
+      key: "/admin",
+      icon: <TeamOutlined />,
+      label: '管理员管理',
+      children: [
+        { key: "/admin/create", label: '新增管理员' },
       ]
     },
     {
@@ -74,7 +82,7 @@ export default function Home() {
   const specialMenu = {
     "Dealer": {"/center": {value: {key: "/center/address", label: '收货地址'}, index: 1}}
   }
-  const AdminMenuKey = ["/", "/user", "/center", "logout"]
+  const AdminMenuKey = ["/", "/user", "/admin", "/center", "logout"]
   const DealerMenuKey = ["/", "/product", "/order", "/center", "logout"]
   const SupplierMenuKey = ["/", "/productManage", "/order", "/center", "logout"]
   const WarehouserMenuKey = ["/", "/warehouseManage", "/order", "/center", "logout"]

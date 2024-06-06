@@ -71,7 +71,7 @@ export default function ProtectedRouter(props) {
   }, [status, personalInfo])
 
 
-  const AdminAllow = ["/", "/user", "/center", "logout"]
+  const AdminAllow = ["/", "/user", "/admin", "/center", "logout"]
   const DealerAllow = ["/", "/product", "/order", "/center", "logout"]
   const SupplierAllow = ["/", "/productManage", "/order", "/center", "logout"]
   const WarehouserAllow = ["/", "/warehouseManage", "/order", "/center", "logout"]
