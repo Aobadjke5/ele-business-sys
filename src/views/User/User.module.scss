@@ -166,3 +166,13 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.loadingBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 25px;
+  height: 80px;
+}
