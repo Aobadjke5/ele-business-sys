@@ -26,7 +26,11 @@ request.interceptors.request.use(function (config) {
   let nowTime = new Date().getTime().toString()
   config.headers['XY-time'] = nowTime
 
-  let dataMD5 = MD5(JSON.stringify(config.data ? config.data : "") + nowTime)
+  let requestData = config.data ? config.data : ""
+  if(config.url === "/auth/login") {
+    requestData = `username=${requestData.username}&password=${requestData.password}`
+  }
+  let dataMD5 = MD5(JSON.stringify(requestData) + nowTime)
   config.headers['XY-sign'] = dataMD5
 
   return config;
