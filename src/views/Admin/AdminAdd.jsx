@@ -36,6 +36,10 @@ export default function AdminAdd() {
         setUsername("")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })

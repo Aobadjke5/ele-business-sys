@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { AddressListApi } from '../../api/Center/AddressListApi'
 import { UserOutlined, PhoneOutlined } from '@ant-design/icons'
 import CreateAddressModal from '../CreateAddressModal/CreateAddressModal'
+import { useNavigate } from 'react-router-dom'
 
 export default function AddressSelect(props) {
   const [buttonName, setButtonName] = useState("")
@@ -34,6 +35,7 @@ export default function AddressSelect(props) {
 }
 
 function AddressList(props) {
+  const navigate = useNavigate()
   const [addressList, setAddressList] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   useEffect(() => {
@@ -41,6 +43,10 @@ function AddressList(props) {
       console.log(res)
       setAddressList(res.data.addressList)
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })

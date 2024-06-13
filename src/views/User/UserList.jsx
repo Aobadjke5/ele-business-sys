@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { UserListApi } from "../../api/User/UserListApi"
 import style from "./User.module.scss"
@@ -7,8 +7,10 @@ import UserTag from "../../components/UserTag/UserTag";
 import { UserOutlined, EnvironmentOutlined, LoadingOutlined } from "@ant-design/icons";
 import UserPeopleInfo from "./component/UserPeopleInfo";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function UserList() {
+  const navigate = useNavigate()
   const PAGE_SIZE = 10
   const selectOptions = [
     { value: "all", label: "全部" },
@@ -38,7 +40,7 @@ export default function UserList() {
       if (scrollTop + clientHeight >= scrollHeight - 100) {
         if (moreList) {
           setLoading(true)
-          UserListApi(page + 1, PAGE_SIZE, keywords).then(res => {
+          UserListApi(page + 1, PAGE_SIZE, keywords, selectOption === "all" ? "" : selectOption).then(res => {
             console.log(res);
             if (res.data.userList.length === 0) {
               setMoreList(false)
@@ -50,6 +52,10 @@ export default function UserList() {
             setUserList(userList.concat(res.data.userList))
             setLoading(false)
           }).catch(err => {
+            if(err.code === 40004) {
+              navigate("/login")
+              return
+            }
             message.warning("网络错误，请稍后重试")
             console.log(err);
           })
@@ -66,20 +72,23 @@ export default function UserList() {
       console.log(2)
       oldRef.removeEventListener('scroll', handleScroll)
     }
-  }, [scrollBoxRef, page, keywords, userList, moreList, loading])
+  }, [scrollBoxRef, page, keywords, userList, moreList, loading, selectOption])
 
   useEffect(() => {
     if (userRole === "Admin") {
       setLoading(true)
-      UserListApi(1, PAGE_SIZE, "").then(res => {
+      UserListApi(1, PAGE_SIZE, "", "").then(res => {
         setLoading(false)
         console.log(res);
         if (res.data.userList.length === 0) {
           setMoreList(false)
-          return
         }
         setUserList(res.data.userList)
       }).catch(err => {
+        if(err.code === 40004) {
+          navigate("/login")
+          return
+        }
         message.warning("网络错误，请稍后重试")
         console.log(err);
       })
@@ -93,29 +102,45 @@ export default function UserList() {
     setMoreList(true)
 
     setLoading(true)
-    UserListApi(1, PAGE_SIZE, searchText).then(res => {
+    UserListApi(1, PAGE_SIZE, searchText, selectOption === "all" ? "" : selectOption).then(res => {
       setLoading(false)
       console.log(res);
       if (res.data.userList.length === 0) {
         setMoreList(false)
-        return
       }
       setUserList(res.data.userList)
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       message.warning("网络错误，请稍后重试")
       console.log(err);
     })
   }
 
-  const showList = useMemo(() => {
-    if (selectOption === "all") {
-      return userList
-    } else {
-      return userList.filter(item => {
-        return item.role === selectOption
-      })
-    }
-  }, [userList, selectOption])
+  const handleChangeSelect = (e) => {
+    setSselectOption(e)
+    setPage(1)
+    setMoreList(true)
+
+    setLoading(true)
+    UserListApi(1, PAGE_SIZE, searchText, e === "all" ? "" : e).then(res => {
+      setLoading(false)
+      console.log(res);
+      if (res.data.userList.length === 0) {
+        setMoreList(false)
+      }
+      setUserList(res.data.userList)
+    }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
+      message.warning("网络错误，请稍后重试")
+      console.log(err);
+    })
+  }
 
   return (
     <div ref={scrollBoxRef} style={{ height: '100%', overflow: 'auto' }}>
@@ -123,10 +148,10 @@ export default function UserList() {
       <div className={style.searchBox}>
         <Input placeholder="请输入用户名称" className={style.searchInput} onChange={e => setSearchText(e.target.value)} value={searchText} allowClear size="large" onPressEnter={() => handleClickButton()} />
         <Button type="primary" className={style.searchButton} onClick={() => handleClickButton()} size="large">搜索</Button>
-        <Select className={style.searchSelect} options={selectOptions} defaultValue={"all"} onChange={e => setSselectOption(e)} size="large"></Select>
+        <Select className={style.searchSelect} options={selectOptions} defaultValue={"all"} onChange={e => handleChangeSelect(e)} size="large"></Select>
       </div>
       <dic className={style.userList}>
-        {showList.length === 0 ? <Empty style={{ marginTop: "100px" }} /> : showList.map(item => {
+        {userList.length === 0 ? <Empty style={{ marginTop: "100px" }} /> : userList.map(item => {
           return <UserListItem key={item.userID} {...item} />
         })}
       </dic>

@@ -8,8 +8,10 @@ import { EnvironmentOutlined, UserOutlined } from "@ant-design/icons";
 import UserPeopleInfo from "./component/UserPeopleInfo";
 import { UserVerifyApi } from "../../api/User/UserVerifyApi";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function UserCheck() {
+  const navigate = useNavigate()
   const [userList, setUserList] = useState([])
   const [items, setItems] = useState([])
   const userRole = useSelector(state => state.userInfo.role)
@@ -20,6 +22,10 @@ export default function UserCheck() {
         console.log(res);
         setUserList(res.data.userList)
       }).catch(err => {
+        if(err.code === 40004) {
+          navigate("/login")
+          return
+        }
         message.warning("网络错误，请稍后重试")
         console.log(err)
       })
@@ -50,6 +56,8 @@ export default function UserCheck() {
 }
 
 const UserCheckBox = (props) => {
+  const navigate = useNavigate()
+
   const handlePass = (userID) => {
     console.log("pass", userID)
     UserVerifyApi(userID, "pass").then(res => {
@@ -61,6 +69,10 @@ const UserCheckBox = (props) => {
         message.error("操作失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       message.warning("网络错误，请稍后重试")
       console.log(err)
     })
@@ -75,6 +87,10 @@ const UserCheckBox = (props) => {
         message.error("操作失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       message.warning("网络错误，请稍后重试")
       console.log(err)
     })

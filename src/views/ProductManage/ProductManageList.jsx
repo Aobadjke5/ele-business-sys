@@ -10,8 +10,10 @@ import MyUpload from "../../components/MyUpload/MyUpload"
 import ProductDetailTable from "../../components/ProductDetailTable/ProductDetailTable"
 import { EditProductApi } from "../../api/ProductManage/EditProductApi"
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 export default function ProductManageList() {
+  const navigate = useNavigate()
   const [editProductID, setEditProductID] = useState(-1)
   const [searchText, setSearchText] = useState("")
   const [productList, setProductList] = useState([])
@@ -25,6 +27,10 @@ export default function ProductManageList() {
         setProductList(res.data.productList)
         setProductList2(res.data.productList)
       }).catch(err => {
+        if(err.code === 40004) {
+          navigate("/login")
+          return
+        }
         console.log(err)
         message.error("网络错误，请稍后重试")
       })
@@ -73,6 +79,7 @@ export default function ProductManageList() {
 }
 
 const ProductManageCard = (props) => {
+  const navigate = useNavigate()
   const [edit, setEdit] = useState(false)
   const [loading, setLoading] = useState(false)
   const [checked, setChecked] = useState(props.status === "Yes")
@@ -106,6 +113,10 @@ const ProductManageCard = (props) => {
         message.error("操作失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
@@ -161,6 +172,7 @@ const ProductManageCard = (props) => {
 }
 
 const ProductManageCardEdit = (props) => {
+  const navigate = useNavigate()
   const [productID] = useState(props.productID)
   const [warehouseID, setWarehouseID] = useState(props.warehouseInfo.warehouseID)
   const [warehouseName, setWarehouseName] = useState(props.warehouseInfo.warehouseName)
@@ -212,6 +224,10 @@ const ProductManageCardEdit = (props) => {
         message.error("修改失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })

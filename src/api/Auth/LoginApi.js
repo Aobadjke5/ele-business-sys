@@ -6,6 +6,7 @@ const LoginApi = (username, password) => {
       username: username,
       password: password
     }, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(res => {
+      console.log(res)
       resolve(res.data)
     }).catch(err => {
       reject(err)

@@ -2,8 +2,10 @@ import { Input, Modal, message } from "antd"
 import style from "./EditAddressModal.module.scss"
 import { useEffect, useState } from "react"
 import { EditAddressApi } from "../../api/Center/EditAddressApi"
+import { useNavigate } from "react-router-dom"
 
 export default function CreateAddressModal(props) {
+  const navigate = useNavigate()
   const [confirmLoading, setConfirmLoading] = useState(false)
   const [inputAddress, setInputAddress] = useState("")
   const [inputPeopleName, setInputPeopleName] = useState("")
@@ -45,6 +47,10 @@ export default function CreateAddressModal(props) {
       props.onOk()
     }).catch((err) => {
       setConfirmLoading(false)
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
       return

@@ -10,6 +10,7 @@ import MyUpload from "../../components/MyUpload/MyUpload"
 import { setUserInfo } from "../../redux/slice/UserInfoReducer"
 import { EditPersonalInfoApi } from "../../api/Center/EditPersonalInfoApi"
 import { EditAdminInfoApi } from "../../api/Center/EditAdminInfoApi"
+import { useNavigate } from "react-router-dom"
 
 export default function UserInfo() {
   return (
@@ -21,6 +22,7 @@ export default function UserInfo() {
 }
 
 const UserInfoCard = () => {
+  const navigate = useNavigate()
   const [edit, setEdit] = useState(false)
   const userRole = useSelector(state => state.userInfo.role)
   const [companyImage, setCompanyImage] = useState()
@@ -44,6 +46,10 @@ const UserInfoCard = () => {
       setPeopleMail(res.data.peopleMail)
       dispatch(setUserInfo(res.data))
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
@@ -66,6 +72,10 @@ const UserInfoCard = () => {
         message.error("修改失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
@@ -84,6 +94,10 @@ const UserInfoCard = () => {
         message.error("修改失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })

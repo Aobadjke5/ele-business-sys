@@ -5,8 +5,10 @@ import { useState } from "react"
 import { verifyPassword } from "../../utils/RegisterUtils"
 import { ChangePasswordApi } from "../../api/Auth/ChangePasswordApi"
 import { MD5 } from "../../utils/EncipherUtils"
+import { useNavigate } from "react-router-dom"
 
 export default function UserPassword() {
+  const navigate = useNavigate()
   const [oldPassword, setOldPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -48,6 +50,10 @@ export default function UserPassword() {
         return
       }
     }).catch((err) => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })

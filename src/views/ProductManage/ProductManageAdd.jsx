@@ -86,6 +86,10 @@ export default function ProductManageAdd() {
         message.error("创建失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
