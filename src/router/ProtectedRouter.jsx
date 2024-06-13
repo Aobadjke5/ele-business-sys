@@ -64,6 +64,10 @@ export default function ProtectedRouter(props) {
         DefaultAddressApi().then(res => {
           dispatch(setDefaultAddress(res.data.newAddress))
         }).catch(err => {
+          if(err.code === 40004) {
+            navigate("/login")
+            return
+          }
           console.log(err)
         })
       }

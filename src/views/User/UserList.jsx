@@ -7,8 +7,10 @@ import UserTag from "../../components/UserTag/UserTag";
 import { UserOutlined, EnvironmentOutlined, LoadingOutlined } from "@ant-design/icons";
 import UserPeopleInfo from "./component/UserPeopleInfo";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function UserList() {
+  const navigate = useNavigate()
   const PAGE_SIZE = 10
   const selectOptions = [
     { value: "all", label: "全部" },
@@ -50,6 +52,10 @@ export default function UserList() {
             setUserList(userList.concat(res.data.userList))
             setLoading(false)
           }).catch(err => {
+            if(err.code === 40004) {
+              navigate("/login")
+              return
+            }
             message.warning("网络错误，请稍后重试")
             console.log(err);
           })
@@ -79,6 +85,10 @@ export default function UserList() {
         }
         setUserList(res.data.userList)
       }).catch(err => {
+        if(err.code === 40004) {
+          navigate("/login")
+          return
+        }
         message.warning("网络错误，请稍后重试")
         console.log(err);
       })
@@ -100,6 +110,10 @@ export default function UserList() {
       }
       setUserList(res.data.userList)
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       message.warning("网络错误，请稍后重试")
       console.log(err);
     })
@@ -119,6 +133,10 @@ export default function UserList() {
       }
       setUserList(res.data.userList)
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       message.warning("网络错误，请稍后重试")
       console.log(err);
     })

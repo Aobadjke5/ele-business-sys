@@ -123,6 +123,7 @@ function Step1(props) {
 }
 
 function Step2(props) {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [current, setCurrent] = useState(0)
   const [companyName, setCompanyName] = useState("")
@@ -170,6 +171,10 @@ function Step2(props) {
         message.error("公司信息提交失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       message.error("服务器忙，请稍后重试")
       console.log(err)
     })
@@ -196,6 +201,7 @@ function Step2(props) {
 }
 
 function Step3(props) {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [companyImage, setCompanyImage] = useState("")
 
@@ -223,6 +229,10 @@ function Step3(props) {
         message.error("公司图标上传失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       message.error("服务器忙，请稍后重试")
       console.log(err)
     })
@@ -241,6 +251,7 @@ function Step3(props) {
 }
 
 function Step4(props) {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [peopleName, setPeopleName] = useState("")
   const [peopleTel, setPeopleTel] = useState("")
@@ -280,6 +291,10 @@ function Step4(props) {
         message.error("公司联系人信息上传失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       message.error("服务器忙，请稍后重试")
       console.log(err)
     })

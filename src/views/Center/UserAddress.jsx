@@ -9,8 +9,10 @@ import { UserOutlined, PhoneOutlined } from "@ant-design/icons"
 import CreateAddressModal from "../../components/CreateAddressModal/CreateAddressModal"
 import EditAddressModal from "../../components/EditAddressModal/EditAddressModal"
 import { DeleteAddressApi } from "../../api/Center/DeleteAddressApi"
+import { useNavigate } from "react-router-dom"
 
 export default function UserAddress() {
+  const navigate = useNavigate()
   const [addressList, setAddressList] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const dispatch = useDispatch()
@@ -25,6 +27,10 @@ export default function UserAddress() {
           dispatch(setDefaultAddress(res.data.addressList[0]))
         }
       }).catch(err => {
+        if(err.code === 40004) {
+          navigate("/login")
+          return
+        }
         console.log(err)
       })
     }
@@ -81,6 +87,7 @@ export default function UserAddress() {
 }
 
 function AddressBox(props) {
+  const navigate = useNavigate()
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleDeleteAddress = () => {
@@ -93,6 +100,10 @@ function AddressBox(props) {
         message.error("删除失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })

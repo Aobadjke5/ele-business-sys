@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Product() {
+  const navigate = useNavigate()
   const pageSize = 12
   const [currentPage, setCurrentPage] = useState(1)
   const [totalCnt, setTotalCnt] = useState(0)
@@ -23,6 +24,10 @@ export default function Product() {
         setProductList(res.data.productList)
         setTotalCnt(res.data.totalCnt)
       }).catch(err => {
+        if(err.code === 40004) {
+          navigate("/login")
+          return
+        }
         console.log(err)
         message.error("网络错误，请稍后重试")
       })
@@ -40,6 +45,10 @@ export default function Product() {
       setTotalCnt(res.data.totalCnt)
       setCurrentPage(1)
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
@@ -52,6 +61,10 @@ export default function Product() {
       setProductList(res.data.productList)
       setTotalCnt(res.data.totalCnt)
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })

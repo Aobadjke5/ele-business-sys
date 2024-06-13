@@ -9,6 +9,7 @@ import { ReceiveOrderApi } from "../../../api/Order/ReceiveOrderApi"
 import { RefuseOrderApi } from "../../../api/Order/RefuseOrderApi"
 import { RefuseReturnOrderApi } from "../../../api/Order/RefuseReturnOrderApi"
 import { ReceiveReturnOrderApi } from "../../../api/Order/ReceiveReturnOrderApi"
+import { useNavigate } from "react-router-dom"
 
 export default function OrderItem(props) {
   if (props.status === "Waiting") {
@@ -27,6 +28,7 @@ export default function OrderItem(props) {
 }
 
 function WaitingItem(props) {
+  const navigate = useNavigate()
   const [time, setTime] = useState()
   useEffect(() => {
     const formattedDate = getFormatTime(props.createTimestamp)
@@ -43,6 +45,10 @@ function WaitingItem(props) {
         message.error("操作失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
@@ -58,6 +64,10 @@ function WaitingItem(props) {
         message.error("操作失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
@@ -179,6 +189,7 @@ function CancelledItem(props) {
 }
 
 function SendingItem(props) {
+  const navigate = useNavigate()
   const [time1, setTime1] = useState()
   const [time2, setTime2] = useState()
   useEffect(() => {
@@ -199,6 +210,10 @@ function SendingItem(props) {
         message.error("操作失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
@@ -214,6 +229,10 @@ function SendingItem(props) {
         message.error("操作失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
@@ -339,6 +358,7 @@ function CompletedItem(props) {
 }
 
 function ReturningItem(props) {
+  const navigate = useNavigate()
   const [time1, setTime1] = useState()
   const [time3, setTime3] = useState()
   useEffect(() => {
@@ -359,6 +379,10 @@ function ReturningItem(props) {
         message.error("操作失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
@@ -374,6 +398,10 @@ function ReturningItem(props) {
         message.error("操作失败")
       }
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })

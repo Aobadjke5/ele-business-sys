@@ -3,6 +3,7 @@ import { Button, Input, Popover, Progress, Select, message } from "antd"
 import { SearchOutlined, IdcardOutlined, TagOutlined } from '@ant-design/icons'
 import { useEffect, useMemo, useState } from 'react'
 import { WarehouseListApi } from '../../api/Warehouse/WarehouseListApi'
+import { useNavigate } from 'react-router-dom'
 
 export default function WarehouseSelect(props) {
   const [buttonName, setButtonName] = useState(props.warehouseName)
@@ -28,6 +29,7 @@ export default function WarehouseSelect(props) {
 }
 
 function WarehouseList(props) {
+  const navigate = useNavigate()
   const [warehouseList, setWarehouseList] = useState([])
   const [searchText, setSearchText] = useState("")
   const [selectValue, setSelectValue] = useState("1")
@@ -42,6 +44,10 @@ function WarehouseList(props) {
       console.log(res)
       setWarehouseList(res.data.warehouseList)
     }).catch(err => {
+      if(err.code === 40004) {
+        navigate("/login")
+        return
+      }
       console.log(err)
       message.error("网络错误，请稍后重试")
     })
